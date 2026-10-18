@@ -3,6 +3,8 @@
 {
   "name": "rag-webapp",
   "compatibility_date": "2026-10-18",
+  // Served at its own subdomain: on deploy, Cloudflare creates the DNS record and the certificate.
+  "routes": [{ "pattern": "rag.diegodebrun.com", "custom_domain": true }],
   "assets": {
     "directory": "./dist",
     // any address that is not a file gets index.html, as a single-page app expects

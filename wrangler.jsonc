@@ -1,0 +1,11 @@
+// Cloudflare Workers deployment: the site is only the static files Vite builds into dist/, with no Worker script.
+// Workers Builds runs `npm run build` and then `npx wrangler deploy` on every push.
+{
+  "name": "rag-webapp",
+  "compatibility_date": "2026-10-18",
+  "assets": {
+    "directory": "./dist",
+    // any address that is not a file gets index.html, as a single-page app expects
+    "not_found_handling": "single-page-application"
+  }
+}

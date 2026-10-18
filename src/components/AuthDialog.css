@@ -1,0 +1,151 @@
+.auth-dialog {
+  width: min(400px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 64px rgb(0 0 0 / 0.35);
+}
+
+.auth-dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.auth-dialog__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.auth-dialog__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+}
+
+.auth-dialog__tabs {
+  display: flex;
+  gap: 4px;
+  margin-right: 48px;
+}
+
+.auth-dialog__tabs button {
+  padding: 6px 2px;
+  margin-right: 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+.auth-dialog__tabs button[aria-pressed='true'] {
+  border-bottom-color: var(--primary);
+  opacity: 1;
+}
+
+.auth-dialog__notice {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-size: 0.875rem;
+}
+
+.auth-dialog__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  font: inherit;
+}
+
+.field__input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.field__password {
+  position: relative;
+  display: block;
+}
+
+.field__password .field__input {
+  padding-right: 84px;
+}
+
+.field__reveal {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.field__hint {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+}
+
+.auth-dialog__error {
+  min-height: 1.5em;
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--accent-text);
+}
+
+.auth-dialog__submit {
+  width: 100%;
+}
+
+/* on a phone the dialog takes the whole screen */
+@media (max-width: 480px) {
+  .auth-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}

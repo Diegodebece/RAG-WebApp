@@ -1,0 +1,41 @@
+.constellations {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.constellations canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.constellations__toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+}
+
+.constellations__toggle:hover,
+.constellations__toggle:focus-visible {
+  opacity: 1;
+}
+
+.constellations__toggle svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* with reduced motion the sky is already still: there is nothing to pause */
+@media (prefers-reduced-motion: reduce) {
+  .constellations__toggle {
+    display: none;
+  }
+}

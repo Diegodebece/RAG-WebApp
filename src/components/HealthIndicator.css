@@ -1,0 +1,174 @@
+.health {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.health:hover {
+  border-color: var(--primary);
+}
+
+.health__dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-unknown);
+}
+
+[data-state='ok'] > .health__dot {
+  background: var(--status-ok);
+  box-shadow: 0 0 6px var(--status-ok);
+}
+
+[data-state='degraded'] > .health__dot {
+  background: var(--status-warn);
+}
+
+[data-state='down'] > .health__dot {
+  background: var(--status-down);
+}
+
+.health__dot[data-pulsing='true'] {
+  animation: health-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes health-pulse {
+  to {
+    opacity: 0.35;
+  }
+}
+
+.health-dialog {
+  width: min(460px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 64px rgb(0 0 0 / 0.35);
+}
+
+.health-dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.health-dialog__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.health-dialog__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+}
+
+.health-dialog__title {
+  margin: 0;
+  padding-right: 40px;
+  font-size: 1.25rem;
+}
+
+.health-dialog__status {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.health-dialog__status .health__dot {
+  width: 12px;
+  height: 12px;
+  margin-top: 5px;
+}
+
+.health-dialog__status p {
+  margin: 2px 0 0;
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
+.health-dialog__parts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.health-dialog__parts li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.health-dialog__parts li span:last-child {
+  font-weight: 600;
+}
+
+.health-dialog__parts li[data-state='up'] span:last-child {
+  color: var(--primary);
+}
+
+.health-dialog__parts li[data-state='down'] span:last-child {
+  color: var(--status-down);
+}
+
+.health-dialog__check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8125rem;
+  opacity: 0.85;
+}
+
+/* on a phone the word goes away and the dot stays; the dialog takes the whole screen */
+@media (max-width: 480px) {
+  .health {
+    padding: 6px;
+  }
+
+  .health__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .health-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .health__dot[data-pulsing='true'] {
+    animation: none;
+  }
+}

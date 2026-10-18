@@ -1,0 +1,54 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+  /* translucent, so the sky shows through, blurred, behind the bar */
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.header__brand {
+  color: var(--primary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.header__start {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* On a phone, with a session, everything has to fit in 375px: tighter gaps and buttons. */
+@media (max-width: 480px) {
+  .header {
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .header__controls {
+    gap: 6px;
+  }
+
+  .header__controls .button {
+    padding: 7px 10px;
+  }
+
+  .header__controls .language-switch {
+    --option-width: 32px;
+  }
+}

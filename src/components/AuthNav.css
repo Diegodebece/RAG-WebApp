@@ -1,0 +1,52 @@
+.auth-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-nav__email {
+  max-width: 220px;
+  overflow: hidden;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Narrower screens drop the email first; it stays available to screen readers. */
+@media (max-width: 960px) {
+  .auth-nav__email {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* On a phone the login dialog has a sign-up tab anyway. */
+@media (max-width: 560px) {
+  .auth-nav__sign-up {
+    display: none;
+  }
+}
+
+.auth-nav__log-out {
+  gap: 6px;
+}
+
+.auth-nav__log-out svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* on narrow screens, log out is just its icon; the label stays for screen readers */
+@media (max-width: 720px) {
+  .auth-nav__log-out-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}

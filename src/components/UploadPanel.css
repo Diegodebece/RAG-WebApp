@@ -1,0 +1,175 @@
+.upload {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  /* translucent, like the header, so the sky shows through */
+  background: color-mix(in srgb, var(--surface) 75%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.upload__title {
+  margin: 0 0 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.upload__guidelines {
+  margin: 0 0 20px;
+  padding-left: 1.1em;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.upload__guidelines li::marker {
+  color: var(--primary);
+}
+
+.upload__zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 32px 16px;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.upload__zone:hover,
+.upload__zone[data-dragging='true'] {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.upload__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+  color: var(--primary);
+}
+
+.upload__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.upload__primary {
+  max-width: 100%;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload__secondary {
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.upload__notice {
+  min-height: 1.5em;
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  color: var(--accent-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upload__zone {
+    transition: none;
+  }
+}
+
+.upload__zone:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.upload__status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.875rem;
+}
+
+.upload__status:empty {
+  display: none;
+}
+
+.upload__status p {
+  margin: 0;
+}
+
+.upload__summary {
+  opacity: 0.85;
+}
+
+.upload__send {
+  align-self: flex-start;
+}
+
+.upload__done {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.upload__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.upload__bar {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.upload__bar span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+/* no number yet: a short bar slides back and forth */
+.upload__bar[data-indeterminate='true'] span {
+  width: 30%;
+  animation: upload-slide 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes upload-slide {
+  from {
+    left: 0;
+  }
+  to {
+    left: 70%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upload__bar span {
+    transition: none;
+  }
+
+  .upload__bar[data-indeterminate='true'] span {
+    width: 100%;
+    animation: none;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,180 @@
+.documents-menu {
+  position: relative;
+}
+
+.documents-menu__toggle {
+  gap: 8px;
+  padding: 7px 12px;
+}
+
+.documents-menu__toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.documents-menu__toggle[aria-expanded='true'] svg:last-child {
+  transform: rotate(180deg);
+}
+
+.documents-menu__count {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+  font-size: 0.75rem;
+  line-height: 20px;
+}
+
+.documents-menu__panel {
+  position: absolute;
+  /* aligned to the button's left edge: the controls after it are always wider than the panel, so it never
+     leaves the screen on the right */
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  width: min(380px, calc(100vw - 32px));
+  max-height: min(70vh, 480px);
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.3);
+}
+
+.documents-menu__panel[hidden] {
+  display: none;
+}
+
+.documents-menu__state {
+  margin: 0;
+  padding: 16px 8px;
+  font-size: 0.875rem;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.documents-menu__retry {
+  display: block;
+  margin: 8px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.documents-menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.documents-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.documents-menu__item[data-selected='true'] {
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.documents-menu__open {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.documents-menu__open:not(:disabled):hover {
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.documents-menu__open:disabled {
+  cursor: default;
+}
+
+.documents-menu__name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.documents-menu__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 0.8125rem;
+  opacity: 0.75;
+}
+
+.documents-menu__status {
+  font-weight: 600;
+}
+
+.documents-menu__status[data-status='ready'] {
+  color: var(--primary);
+}
+
+.documents-menu__status[data-status='failed'] {
+  color: var(--accent-text);
+}
+
+.documents-menu__delete {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 4px;
+  border-color: transparent;
+  background: none;
+}
+
+.documents-menu__delete:hover {
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.documents-menu__delete svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* On narrow screens the button keeps its icon and count. */
+@media (max-width: 720px) {
+  .documents-menu__toggle svg:last-child {
+    display: none;
+  }
+
+  .documents-menu__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* On a phone the list spans the screen under the header. */
+@media (max-width: 560px) {
+  .documents-menu__panel {
+    position: fixed;
+    top: 60px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+}

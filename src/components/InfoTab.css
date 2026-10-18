@@ -1,0 +1,151 @@
+/* Hangs from the header's bottom edge, over the page: it never pushes the content down. */
+.info {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* The panel unfolds by animating its row from 0 to its content's height. */
+.info__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  border-bottom: 2px solid transparent;
+  background: var(--surface);
+  transition: grid-template-rows 0.3s ease, border-color 0.3s ease;
+  pointer-events: auto;
+}
+
+.info[data-open='true'] .info__panel {
+  grid-template-rows: 1fr;
+  border-bottom-color: var(--highlight);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.3);
+}
+
+.info__content {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  max-height: min(70vh, 560px);
+  margin: 0 auto;
+  padding: 0 24px;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.info[data-open='true'] .info__content {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.info__content h2 {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.info__content h2:not(:first-child) {
+  margin-top: 20px;
+}
+
+.info__content p {
+  margin: 0;
+}
+
+.info__content p + p {
+  margin-top: 8px;
+}
+
+.info__content ol {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.info__content li + li {
+  margin-top: 4px;
+}
+
+.info__stack {
+  margin: 0;
+}
+
+.info__stack div {
+  padding: 4px 0;
+}
+
+.info__stack dt {
+  font-weight: 600;
+}
+
+.info__stack dd {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.info__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 24px;
+  padding: 4px 14px 6px;
+  border: 0;
+  border-radius: 0 0 10px 10px;
+  background: var(--highlight);
+  color: var(--on-highlight);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.info__tab:hover {
+  background: color-mix(in srgb, var(--highlight) 88%, white);
+}
+
+.info__tab svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.info[data-open='true'] .info__tab svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 800px) {
+  .info__content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .info__content section + section {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info__tab {
+    margin-left: 16px;
+  }
+
+  .info__content,
+  .info[data-open='true'] .info__content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info__panel,
+  .info__tab svg {
+    transition: none;
+  }
+}

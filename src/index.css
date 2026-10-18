@@ -1,0 +1,216 @@
+/* Palette (realtimecolors.com): text, background, primary, secondary and accent. Dark mode inverts each
+   color's lightness and keeps its hue, except the background, a green-black that matches the sky.
+   The accent is for page content; the constellation background keeps its own colors (--sky ... --glow),
+   and --intensity and --glow soften it on the light background. */
+:root {
+  color-scheme: dark;
+  --text: #dae8e0;
+  --background: #101a16;
+  --surface: #17261f;
+  --primary: #8fd7b9;
+  --secondary: #17261f;
+  --accent: #c78f5c;
+  --accent-text: #c78f5c;
+  --border: rgb(143 215 185 / 0.16);
+
+  --sky: var(--background);
+  --line: var(--primary);
+  --star: var(--primary);
+  --crux: var(--primary);
+  --active: #c8ffdf;
+  --core: #f6f5ef;
+  --intensity: 1;
+  --glow: 1;
+  --line-intensity: 1;
+
+  /* the server status dot */
+  --status-ok: var(--primary);
+  --status-warn: var(--accent);
+  --status-down: #f2a7a0;
+  --status-unknown: rgb(218 232 224 / 0.4);
+
+  /* mustard, for the "what is it" tab; dark text on it keeps 8:1 */
+  --highlight: #d9a93f;
+  --on-highlight: #101a16;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --text: #17251d;
+  /* a darker green-gray than the palette's #f6f5ef, which was too bright; primary and the accent text are
+     darkened to keep 4.5:1 on it */
+  --background: #ccd8cf;
+  --surface: #e3eae4;
+  --primary: #1f5e44;
+  --secondary: #e2eadf;
+  --accent: #a36b38;
+  /* the accent itself is below 4.5:1 on the light background, too low for small text */
+  --accent-text: #7a4e27;
+  --border: rgb(40 112 82 / 0.2);
+
+  --active: #145b38;
+  --core: #17251d;
+  --intensity: 0.6;
+  --glow: 0.45;
+  /* the lines between stars are faint by design; on the light background they need more weight */
+  --line-intensity: 1.6;
+
+  --status-down: #b3261e;
+  --status-unknown: rgb(23 37 29 / 0.35);
+
+  --highlight: #c99a33;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: var(--primary);
+}
+
+.button--primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--background);
+}
+
+.button--primary:hover {
+  background: color-mix(in srgb, var(--primary) 85%, var(--text));
+}
+
+/* on --accent-text, the darker accent, so the label keeps 4.5:1 on the light background too */
+.button--danger {
+  border-color: var(--accent-text);
+  background: var(--accent-text);
+  color: var(--background);
+}
+
+.button--danger:hover {
+  border-color: var(--accent-text);
+  background: color-mix(in srgb, var(--accent-text) 85%, var(--text));
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* round button holding an icon: the theme toggle and the animation's pause button */
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  border-color: var(--primary);
+}
+
+.icon-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Home: the upload panel on the left, centered in the height left under the header, and the title on the
+   right. On narrow screens they stack, title first. */
+.home {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* room at the top for the info tab hanging from the header */
+  padding: 56px 24px 32px;
+}
+
+.home__intro h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.home__intro p {
+  max-width: 30em;
+  margin: 0;
+  font-size: 1.125rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 800px) {
+  .home {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .home__intro {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    padding: 48px 16px 24px;
+  }
+}

@@ -1,5 +1,6 @@
 # Only the app is published: documentation, design references and Claude Code's configuration stay local
 *.md
+!/README.md
 docs/
 design/
 .claude/

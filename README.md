@@ -2,6 +2,8 @@
 
 **Live:** https://rag.diegodebrun.com
 
+**API code here:** https://github.com/Diegodebece/RAG-WebApi
+
 This frontend was built entirely by [Claude Code](https://claude.com/claude-code), with a single purpose: to make the RAG project usable from a browser. The project itself is the API, **RAG-WebApi**, which splits documents into passages, indexes them and answers questions citing its sources. This repository is only its interface.
 
 ## What it does

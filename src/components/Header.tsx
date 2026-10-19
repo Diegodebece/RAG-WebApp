@@ -16,7 +16,7 @@ export function Header() {
     <header className="header">
       <div className="header__start">
         <a className="header__brand" href="/" aria-label={t.header.home}>
-          RAG
+          {t.header.brand}
         </a>
         <HealthIndicator />
       </div>

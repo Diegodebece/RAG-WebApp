@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/language.ts'
-import { ChevronIcon } from './icons.tsx'
+import { LINKS } from '../links.ts'
+import { ChevronIcon, GitHubIcon } from './icons.tsx'
 import './InfoTab.css'
 
 // A mustard tab hanging from the bottom of the header. A click unfolds a panel over the page with what the
@@ -43,6 +44,20 @@ export function InfoTab() {
             {t.info.what.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            <ul className="info__repos">
+              <li>
+                <a href={LINKS.frontendRepo} target="_blank" rel="noopener noreferrer">
+                  <GitHubIcon />
+                  {t.info.frontendRepo}
+                </a>
+              </li>
+              <li>
+                <a href={LINKS.apiRepo} target="_blank" rel="noopener noreferrer">
+                  <GitHubIcon />
+                  {t.info.apiRepo}
+                </a>
+              </li>
+            </ul>
           </section>
           <section>
             <h2>{t.info.howTitle}</h2>

@@ -128,14 +128,19 @@ export function startConstellations(skyCanvas: HTMLCanvasElement, cruxCanvas: HT
     lineIntensity = parseFloat(read('line-intensity')) || 1
   }
 
+  // The canvas's own size on the page, not the window's: the window's resize event does not fire in every case
+  // (a browser's device emulation, some zoom and screen changes), and then the canvas kept its old size.
+  const currentDpr = () => Math.min(devicePixelRatio || 1, 2)
+  const outOfSync = () => skyCanvas.clientWidth !== w || skyCanvas.clientHeight !== h || currentDpr() !== dpr
+
   function resize() {
-    w = innerWidth
-    h = innerHeight
+    w = skyCanvas.clientWidth
+    h = skyCanvas.clientHeight
     // a window without a size (a hidden tab) would build the field for an area of zero
     if (!w || !h) {
       return
     }
-    dpr = Math.min(devicePixelRatio || 1, 2)
+    dpr = currentDpr()
     for (const [canvas, g] of [[skyCanvas, sky], [cruxCanvas, front]] as const) {
       canvas.width = Math.round(w * dpr)
       canvas.height = Math.round(h * dpr)
@@ -343,11 +348,17 @@ export function startConstellations(skyCanvas: HTMLCanvasElement, cruxCanvas: HT
         clock += Math.min((now - last) / 1000, 0.1)
       }
       last = now
-      if (!lastStars || now - lastStars >= STARS_INTERVAL - 2) {
+      if (outOfSync()) {
+        // resizing redraws both layers
         lastStars = now
-        drawStars()
+        resize()
+      } else {
+        if (!lastStars || now - lastStars >= STARS_INTERVAL - 2) {
+          lastStars = now
+          drawStars()
+        }
+        drawCrux()
       }
-      drawCrux()
     }
     if (running()) {
       raf = requestAnimationFrame(tick)
@@ -365,15 +376,25 @@ export function startConstellations(skyCanvas: HTMLCanvasElement, cruxCanvas: HT
     }
   }
 
+  // A theme change while paused (or with reduced motion) draws a single frame, so it checks the size too.
   const onThemeChange = () => {
-    readColors()
-    draw()
+    if (outOfSync()) {
+      resize()
+    } else {
+      readColors()
+      draw()
+    }
   }
   const themeObserver = new MutationObserver(onThemeChange)
   themeObserver.observe(root, { attributes: true, attributeFilter: ['data-theme'] })
+  const sizeObserver = new ResizeObserver(() => {
+    if (outOfSync()) {
+      resize()
+    }
+  })
+  sizeObserver.observe(skyCanvas)
   document.addEventListener('visibilitychange', start)
   reduced.addEventListener('change', start)
-  addEventListener('resize', resize)
   resize()
   start()
 
@@ -385,9 +406,9 @@ export function startConstellations(skyCanvas: HTMLCanvasElement, cruxCanvas: HT
     destroy() {
       cancelAnimationFrame(raf)
       themeObserver.disconnect()
+      sizeObserver.disconnect()
       document.removeEventListener('visibilitychange', start)
       reduced.removeEventListener('change', start)
-      removeEventListener('resize', resize)
     },
   }
 }

@@ -1,14 +1,8 @@
 import type { ReactNode } from 'react'
 import { useLanguage } from '../i18n/language.ts'
+import { LINKS } from '../links.ts'
 import { ClaudeIcon, GitHubIcon, LinkedInIcon } from './icons.tsx'
 import './Footer.css'
-
-const LINKS = {
-  site: 'https://diegodebrun.com',
-  github: 'https://github.com/Diegodebece',
-  linkedin: 'https://www.linkedin.com/in/diegodebrun',
-  claudeCode: 'https://claude.com/claude-code',
-}
 
 function ExternalLink({ href, icon, children }: { href: string; icon?: ReactNode; children: string }) {
   return (

@@ -4,7 +4,8 @@ export type Language = (typeof LANGUAGES)[number]
 
 const en = {
   header: {
-    home: 'RAG, home',
+    brand: 'RAG Demo',
+    home: 'RAG Demo, home',
     language: 'Language',
     toDark: 'Switch to dark mode',
     toLight: 'Switch to light mode',
@@ -25,7 +26,7 @@ const en = {
       'PDFs need text that can be selected and copied: scanned pages cannot be read',
       'Up to 200,000 characters, about 60 pages',
       'Questions work best in the language of the document',
-      'Up to 3 documents at a time, 3 uploads and 30 questions per day',
+      'Up to 3 documents stored, indexed one at a time; 3 uploads and 30 questions per day',
       'Documents are deleted after 24 hours',
     ],
     drop: 'Drop a file here',
@@ -162,10 +163,13 @@ const en = {
   info: {
     tab: 'What is it and how does it work?',
     whatTitle: 'What it is',
+    frontendRepo: 'Frontend code',
+    apiRepo: 'API code: the RAG pipeline',
     what: [
       'RAG (retrieval-augmented generation) is how AI assistants answer from information they were never trained on: instead of relying on what the model memorized, the system first searches a set of documents for the relevant passages, and then asks the model to answer using only those.',
       'It lets companies put AI on top of their own manuals, contracts or support tickets without retraining a model, and it cuts down on made-up answers, because every answer can point to its source. That is why most AI products built today, from support chatbots to internal search tools, have a RAG pipeline inside.',
       'This site is a proof of concept: upload a document and ask questions about it, and the answers cite the passages they rely on. The models are small enough to run on a home PC, so the quality of the answers is limited by that hardware: the point is the pipeline around them.',
+      'Running the models locally is also what makes RAG useful for important documents: contracts, records or internal reports can be worked with without handing them to a third-party AI service. (This public demo is not the place for them, though: please do not upload sensitive files here.)',
     ],
     howTitle: 'How it works',
     how: [
@@ -198,7 +202,8 @@ export type Messages = typeof en
 
 const es: Messages = {
   header: {
-    home: 'RAG, inicio',
+    brand: 'Demo RAG',
+    home: 'Demo RAG, inicio',
     language: 'Idioma',
     toDark: 'Cambiar a modo oscuro',
     toLight: 'Cambiar a modo claro',
@@ -219,7 +224,7 @@ const es: Messages = {
       'El texto del PDF tiene que poder seleccionarse y copiarse: los escaneos no se pueden leer',
       'Hasta 200.000 caracteres, unas 60 páginas',
       'Las preguntas funcionan mejor en el idioma del documento',
-      'Hasta 3 documentos a la vez, 3 subidas y 30 preguntas por día',
+      'Hasta 3 documentos guardados, que se indexan de a uno; 3 subidas y 30 preguntas por día',
       'Los documentos se borran a las 24 horas',
     ],
     drop: 'Soltar un archivo aquí',
@@ -356,10 +361,13 @@ const es: Messages = {
   info: {
     tab: '¿Qué es y cómo funciona?',
     whatTitle: 'Qué es',
+    frontendRepo: 'Código del frontend',
+    apiRepo: 'Código del API: el pipeline RAG',
     what: [
       'RAG (generación aumentada por recuperación) es la forma en que los asistentes de IA responden con información con la que nunca fueron entrenados: en lugar de depender de lo que el modelo memorizó, el sistema primero busca en un conjunto de documentos los pasajes relevantes, y después le pide al modelo que responda usando solo esos.',
       'Es lo que permite a las empresas poner IA sobre sus propios manuales, contratos o tickets de soporte sin reentrenar un modelo, y reduce las respuestas inventadas, porque cada respuesta puede señalar su fuente. Por eso la mayoría de los productos de IA que se construyen hoy, desde chatbots de soporte hasta buscadores internos, tienen un pipeline de RAG adentro.',
       'Este sitio es una prueba de concepto: se sube un documento y se le hacen preguntas, y las respuestas citan los pasajes en los que se basan. Los modelos son lo bastante chicos para correr en una PC hogareña, así que la calidad de las respuestas está limitada por ese hardware: lo importante es el pipeline que los rodea.',
+      'Que los modelos corran localmente es también lo que hace útil al RAG para documentos importantes: contratos, historias clínicas o informes internos se pueden trabajar sin entregárselos a un servicio de IA de terceros. (Esta demo pública no es el lugar para ellos, igual: mejor no subir archivos sensibles acá.)',
     ],
     howTitle: 'Cómo funciona',
     how: [
